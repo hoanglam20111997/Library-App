@@ -1,17 +1,15 @@
 import React from 'react';
 import './App.css';
+import { HomePage } from './layouts/HomePage/HomePage';
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
-import { ExploreTopBooks } from './layouts/HomePage/ExploreTopBooks';
+import { Footer } from './layouts/NavbarAndFooter/Footer';
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
+    <div className='App'>
       <Navbar/>
-      <ExploreTopBooks/>
-      <h1>Test commit
-      </h1>
+      <HomePage/>
+      <Footer/>
     </div>
   );
 }
-
-export default App;
