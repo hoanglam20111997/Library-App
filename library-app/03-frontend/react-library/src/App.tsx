@@ -8,6 +8,8 @@ function App() {
     <div className="App">
       <Navbar/>
       <ExploreTopBooks/>
+      <h1>Test commit
+      </h1>
     </div>
   );
 }
