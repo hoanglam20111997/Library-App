@@ -2,12 +2,11 @@ import { Redirect } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
 import { SpinnerLoading } from '../layouts/Utils/SpinnerLoading';
 import OktaSignInWidget from './OktaSigninWidget';
-import { config } from 'process';
 
-const LoginWidget = ({}) => {
+const LoginWidget = ({ config }) => {
     const { oktaAuth, authState } = useOktaAuth();
     const onSuccess = (tokens) => {
-        oktaAuth.handleLoginRedirect(token);
+        oktaAuth.handleLoginRedirect(tokens);
     };
 
     const onError = (err) => {
