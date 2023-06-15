@@ -1,15 +1,15 @@
 package com.luv2code.springbootlibrary.entity;
 
-
-import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "review")
 @Data
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,4 +30,14 @@ public class Review {
 
     @Column(name = "review_description")
     private String reviewDescription;
+
+
+
+
+
+
+
+
+
+
 }
