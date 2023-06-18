@@ -18,10 +18,9 @@ export const SearchBooksPage = () => {
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const baseUrl: string = "http://localhost:8080/api/books";
+            const baseUrl: string = `${process.env.REACT_APP_API}/books`;
 
             let url: string = '';
-            // const url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
 
             if (searchUrl === '') {
                 url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
@@ -124,7 +123,7 @@ export const SearchBooksPage = () => {
                         <div className="col-6">
                             <div className="d-flex">
                                 <input className="form-control me-2" type="search"
-                                    placeholder="Search" aria-aria-labelledby="Search"
+                                    placeholder="Search" aria-labelledby="Search"
                                     onChange={e => setSearch(e.target.value)}
                                 // onKeyUp={() => SearchHandleChange()} 
                                 />

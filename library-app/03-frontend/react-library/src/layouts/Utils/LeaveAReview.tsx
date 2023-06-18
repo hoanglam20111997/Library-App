@@ -17,7 +17,7 @@ export const LeaveAReview: React.FC<{ submitReview: any }> = (props) => {
             <h5 className='dropdown-toggle' id='dropdownMenuButton1' data-bs-toggle='dropdown'>
                 Leave a review?
             </h5>
-            <ul id='submitReviewRating' className='dropdown-menu' aria-aria-labelledby='dropdownMenuButton1'>
+            <ul id='submitReviewRating' className='dropdown-menu' aria-labelledby='dropdownMenuButton1'>
                 <li><button onClick={() => starValue(0)} className='dropdown-item'>0 star</button></li>
                 <li><button onClick={() => starValue(0.5)} className='dropdown-item'>.5 star</button></li>
                 <li><button onClick={() => starValue(1)} className='dropdown-item'>1 star</button></li>

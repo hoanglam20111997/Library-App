@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
-import { HomePage } from './layouts/HomePage/HomePage';
-import { Navbar } from './layouts/NavbarAndFooter/Navbar';
-import { Footer } from './layouts/NavbarAndFooter/Footer';
-import { SearchBooksPage } from './layouts/SearchBooksPage/SearchBooksPage';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import './App.css';
 import { BookCheckoutPage } from './layouts/BookCheckoutPage/BookCheckoutPage';
+import { HomePage } from './layouts/HomePage/HomePage';
+import { Footer } from './layouts/NavbarAndFooter/Footer';
+import { Navbar } from './layouts/NavbarAndFooter/Navbar';
+import { SearchBooksPage } from './layouts/SearchBooksPage/SearchBooksPage';
 import { oktaConfig } from './lib/oktaConfig';
-import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import LoginWidget from './Auth/LoginWidget';
 import { ReviewListPage } from './layouts/BookCheckoutPage/ReviewListPage/ReviewListPage';
@@ -28,6 +28,7 @@ export const App = () => {
   const restoreOriginalUri = async (_oktaAuth: any, originalUri: any) => {
     history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
+  
 
   return (
     <div className='d-flex flex-column min-vh-100'>

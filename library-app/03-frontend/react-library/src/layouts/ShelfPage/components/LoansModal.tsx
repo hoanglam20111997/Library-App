@@ -5,7 +5,7 @@ export const LoansModal: React.FC<{ shelfCurrentLoan: ShelfCurrentLoans, mobile:
     return (
         <div className="modal fade" id={props.mobile ? `mobilemodal${props.shelfCurrentLoan.book.id}` :
             `modal${props.shelfCurrentLoan.book.id}`} data-bs-backdrop='static' data-bs-keyboard='false'
-            aria-aria-labelledby="staticBackDropLabel" aria-hidden='true' key={props.shelfCurrentLoan.book.id}>
+            aria-labelledby="staticBackDropLabel" aria-hidden='true' key={props.shelfCurrentLoan.book.id}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
