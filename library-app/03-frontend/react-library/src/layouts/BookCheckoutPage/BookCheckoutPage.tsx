@@ -30,8 +30,11 @@ export const BookCheckoutPage = () => {
     const [isLoadingCurrentLoansCount, setIsLoadingCurrentLoansCount ] = useState(true);
 
     // Is Book Check Out?
-    const [isCheckOut, setIsCheckOut ] = useState(false);
+    const [isCheckedOut, setIsCheckedOut] = useState(false);
     const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut ] = useState(true);
+
+    // Payment
+    const [displayError, setDisplayError] = useState(false);
 
     const bookId = (window.location.pathname).split('/')[2];
 
@@ -65,7 +68,7 @@ export const BookCheckoutPage = () => {
             setIsLoading(false);
             setHttpError(error.message);
         });
-    }, [isCheckOut]);
+    }, [isCheckedOut]);
 
     useEffect(() => {
         const fetchBookReviews = async () => {
@@ -145,7 +148,7 @@ export const BookCheckoutPage = () => {
     useEffect(() => {
         const fetchUserCurrentLoansCount = async () => {
             if (authState && authState.isAuthenticated) {
-                const url = "${process.env.REACT_APP_API}/books/secure/currentloans/count";
+                const url = `${process.env.REACT_APP_API}/books/secure/currentloans/count`;
                 const requestOptions = {
                     method: 'GET',
                     headers: {
@@ -166,7 +169,7 @@ export const BookCheckoutPage = () => {
             setIsLoadingCurrentLoansCount(false);
             setHttpError(error.message);
         });
-    }, [authState, isCheckOut]);
+    }, [authState, isCheckedOut]);
 
     useEffect(() => {
         const fetchUserCheckedOutBook = async () => {
@@ -187,7 +190,7 @@ export const BookCheckoutPage = () => {
                 }
 
                 const bookCheckedOutReponseJson = await bookCheckedOut.json();
-                setIsCheckOut(bookCheckedOutReponseJson);
+                setIsCheckedOut(bookCheckedOutReponseJson);
             }
             setIsLoadingBookCheckedOut(false);
         }
@@ -223,9 +226,11 @@ export const BookCheckoutPage = () => {
 
         const checkoutResponse = await fetch(url, requestOptions);
         if (!checkoutResponse.ok) {
+            setDisplayError(true);
             throw new Error('Something went wrong!');
         }
-        setIsCheckOut(true);
+        setDisplayError(false)
+        setIsCheckedOut(true);
     }
 
     async function submitReview(starInput: number, reviewDescription: string) {
@@ -236,7 +241,6 @@ export const BookCheckoutPage = () => {
 
         const reviewRequestModel = new ReviewRequestModel(starInput, bookId, reviewDescription);
 
-        console.log(reviewRequestModel);
         const url = `${process.env.REACT_APP_API}/reviews/secure`;
         const requestOptions = {
             method: 'POST',
@@ -258,6 +262,11 @@ export const BookCheckoutPage = () => {
         <div>
             {/* Desktop */}
             <div className="container d-none d-lg-block">
+                {displayError && 
+                    <div className="alert alert-danger mt-3" role='alert'>
+                        Please pay outstanding fees and/or return late book(s);
+                    </div>
+                }
                 <div className="row mt-5">
                     <div className="col-sm-2 col-md-2">
                         {book?.img ?
@@ -276,7 +285,7 @@ export const BookCheckoutPage = () => {
                         </div>
                     </div>
                     <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount}
-                        isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckOut}
+                        isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut}
                         checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={submitReview}/>
                 </div>
                 <hr />
@@ -285,6 +294,11 @@ export const BookCheckoutPage = () => {
 
             {/* Mobile */}
             <div className="container d-lg-none mt-5">
+                {displayError && 
+                    <div className="alert alert-danger mt-3" role='alert'>
+                        Please pay outstanding fees and/or return late book(s);
+                    </div>
+                }
                 <div className="d-flex justify-content-center align-items-center">
                     {book?.img ?
                         <img src={book?.img} width='226' height='349' alt="Book" />
@@ -302,7 +316,7 @@ export const BookCheckoutPage = () => {
                     </div>
                 </div>
                 <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount}
-                    isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckOut}
+                    isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut}
                     checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={submitReview}/>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={true}/>
